@@ -75,9 +75,9 @@ class MainWindow(cTk.CTk):
                 latest_entry = latest_text_field.cget("text")
                 print(f"Latest Entry: {latest_entry}")
             else:
-                print("No text entries available")
+                print("No entries available!")
         else:
-            print("No entries available")
+            print("No entries available!")
 
 if __name__ == "__main__":
     root = MainWindow()
