@@ -53,9 +53,11 @@ class MainWindow(cTk.CTk):
                 text_field.configure(wraplength=canvas_width - scrollbar_width - 200)
 
     def add_text_field(self):
-        text = self.TestingEntry.get()
+        canvas_width = self.canvas.winfo_width()
+        scrollbar_width = self.scrollbar.winfo_width()
+        text = self.TestingEntry.get() # test
         if text != "":
-            text_field = cTk.CTkLabel(self.text_frame, text=text, wraplength=self.canvas.winfo_width() - self.scrollbar.winfo_width() - 200)
+            text_field = cTk.CTkLabel(self.text_frame, text=text, wraplength=canvas_width - scrollbar_width - 200)
             separator = cTk.CTkFrame(self.text_frame, height=2, bg_color="grey")
             text_field.pack(fill="x", padx=5, pady=5, expand=True, anchor="w")
             separator.pack(fill="x", anchor="w")
@@ -64,10 +66,12 @@ class MainWindow(cTk.CTk):
                 text_field.pack(fill="x", padx=5, pady=5, expand=True, anchor="w", before=first_child)
                 separator.pack(fill="x", anchor="w", before=first_child)
             self.canvas.yview_moveto(0)
+            self.TestingEntry.delete(0, "end") # test
 
-    def delete_all_entries(self):
+    def delete_all_entries(self): # test
         for widget in self.text_frame.winfo_children():
-            widget.destroy()
+            if isinstance(widget, cTk.CTkLabel) or isinstance(widget, cTk.CTkFrame):
+                widget.destroy()
 
     def print_latest_entry(self):
         if self.text_frame.winfo_children():
@@ -76,7 +80,7 @@ class MainWindow(cTk.CTk):
                     latest_text_field = text_field
                     break
             latest_entry = latest_text_field.cget("text")
-            print(f"Latest Entry: {latest_entry}")
+            print(f"Latest Entry: {latest_entry}") # test
         else:
             print("No entries available!")
 

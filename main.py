@@ -10,3 +10,6 @@ if __name__ == "__main__":
     from gui.interaction import open_main_window, confirm_player_name
     root = StartWindow(open_main_window, confirm_player_name)
     root.mainloop()
+
+# TODO:
+# - docstrings and comments
