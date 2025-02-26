@@ -27,6 +27,7 @@ class MainWindow(cTk.CTk):
         self.text_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
         self.canvas.bind("<Configure>", self.update_text_frame_width)
 
+
         # TESTING
         self.TestingFrame = cTk.CTkFrame(self)
         self.TestingFrame.place(relx=0.05, rely=0.55, relwidth=0.9, relheight=0.1)
@@ -59,7 +60,7 @@ class MainWindow(cTk.CTk):
             text_field.pack(fill="x", padx=5, pady=5, expand=True, anchor="w")
             separator.pack(fill="x", anchor="w")
             if self.text_frame.winfo_children():
-                first_child = self.text_frame.winfo_children()[0]
+                first_child = self.text_frame.pack_slaves()[0]
                 text_field.pack(fill="x", padx=5, pady=5, expand=True, anchor="w", before=first_child)
                 separator.pack(fill="x", anchor="w", before=first_child)
             self.canvas.yview_moveto(0)
@@ -70,12 +71,12 @@ class MainWindow(cTk.CTk):
 
     def print_latest_entry(self):
         if self.text_frame.winfo_children():
-            latest_text_field = self.text_frame.winfo_children()[0]
-            if isinstance(latest_text_field, cTk.CTkLabel):
-                latest_entry = latest_text_field.cget("text")
-                print(f"Latest Entry: {latest_entry}")
-            else:
-                print("No entries available!")
+            for text_field in self.text_frame.pack_slaves():
+                if isinstance(text_field, cTk.CTkLabel):
+                    latest_text_field = text_field
+                    break
+            latest_entry = latest_text_field.cget("text")
+            print(f"Latest Entry: {latest_entry}")
         else:
             print("No entries available!")
 
